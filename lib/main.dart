@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
+              button: TextStyle(color: Colors.white,),
             ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
@@ -72,20 +73,20 @@ class _MyHomePageState extends State<MyHomePage> {
         .toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     setState(() {
       _userTransactions.add(
         Transaction(
           title: title,
           amount: amount,
-          date: DateTime.now(),
+          date: chosenDate,
           id: DateTime.now().toString(),
         ),
       );
     });
   }
 
-  void startAddNewTransaction(BuildContext ctx) {
+  void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
       builder: (_) {
@@ -102,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(
               icon: Icon(Icons.add),
-              onPressed: () => startAddNewTransaction(context)),
+              onPressed: () => _startAddNewTransaction(context)),
         ],
       ),
       body: SingleChildScrollView(
@@ -118,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => startAddNewTransaction(context),
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
